@@ -1,5 +1,6 @@
 import { HooksObject } from "@feathersjs/feathers";
 import * as authentication from "@feathersjs/authentication";
+import { disallow } from "feathers-hooks-common";
 import isListEditor from "../../hooks/is-list-editor";
 import validateId from "../../hooks/validate-id";
 import Joi from "joi";
@@ -30,7 +31,7 @@ export default {
     find: [],
     get: [validateId()],
     create: [authenticate("jwt"), validate.form(listSchema)],
-    update: [authenticate("jwt")],
+    update: [disallow("rest")],
     patch: [authenticate("jwt"), validateId(), validate.form(listSchema), isListEditor()],
     remove: [authenticate("jwt"), validateId(), isListEditor()],
   },
