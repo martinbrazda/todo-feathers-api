@@ -34,7 +34,7 @@ export class Lists extends Service<ListData> {
     if (params?.query?.author) {
       params.query.author = new ObjectId(params.query.author);
     }
-    console.log(params);
+    // console.log(params);
     return super.find(params);
   }
 

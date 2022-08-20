@@ -7,6 +7,7 @@ import Joi from "joi";
 
 import validate from "feathers-validate-joi";
 import { ObjectId } from "mongodb";
+import sanitizeListQuery from "../../hooks/sanitize-list-query";
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
@@ -27,7 +28,7 @@ const listSchema = Joi.object().keys({
 
 export default {
   before: {
-    all: [],
+    all: [sanitizeListQuery()],
     find: [],
     get: [validateId()],
     create: [authenticate("jwt"), validate.form(listSchema)],
