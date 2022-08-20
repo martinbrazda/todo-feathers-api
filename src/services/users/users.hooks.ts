@@ -2,6 +2,7 @@ import * as feathersAuthentication from "@feathersjs/authentication";
 import * as local from "@feathersjs/authentication-local";
 import Joi from "joi";
 import validate from "feathers-validate-joi";
+import isUsernameUnique from '../../hooks/is-username-unique';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = feathersAuthentication.hooks;
@@ -17,9 +18,23 @@ export default {
     all: [],
     find: [ authenticate("jwt") ],
     get: [ authenticate("jwt") ],
-    create: [ validate.form(userCreateSchema), hashPassword("password") ],
-    update: [ validate.form(userCreateSchema), hashPassword("password"), authenticate("jwt") ],
-    patch: [ validate.form(userCreateSchema), hashPassword("password"), authenticate("jwt") ],
+    create: [
+      validate.form(userCreateSchema),
+      hashPassword("password"),
+      isUsernameUnique()
+    ],
+    update: [
+      validate.form(userCreateSchema),
+      hashPassword("password"),
+      authenticate("jwt"),
+      isUsernameUnique()
+    ],
+    patch: [
+      validate.form(userCreateSchema),
+      hashPassword("password"),
+      authenticate("jwt"),
+      isUsernameUnique()
+    ],
     remove: [ authenticate("jwt") ]
   },
 
