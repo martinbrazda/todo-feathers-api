@@ -8,12 +8,25 @@ import Joi from "joi";
 import validate from "feathers-validate-joi";
 import { ObjectId } from "mongodb";
 import sanitizeListQuery from "../../hooks/sanitize-list-query";
+import hasUserInParams from "../../hooks/has-user-in-params";
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
 
-const listSchema = Joi.object().keys({
+const listCreateSchema = Joi.object().keys({
   name: Joi.string().max(64).required(),
+  editors: Joi.array().custom((values, helper) => {
+    for (const value of values) {
+      if (!ObjectId.isValid(value)) {
+        return helper.error(value + " is not a valid object ID");
+      }
+    }
+
+    return values; // All the values in the array were checked, continue
+  })
+});
+const listPatchSchema = Joi.object().keys({
+  name: Joi.string().max(64),
   editors: Joi.array().custom((values, helper) => {
     for (const value of values) {
       if (!ObjectId.isValid(value)) {
@@ -31,10 +44,16 @@ export default {
     all: [sanitizeListQuery()],
     find: [],
     get: [validateId()],
-    create: [authenticate("jwt"), validate.form(listSchema)],
+    create: [authenticate("jwt"), validate.form(listCreateSchema), hasUserInParams()],
     update: [disallow("rest")],
-    patch: [authenticate("jwt"), validateId(), validate.form(listSchema), isListEditor()],
-    remove: [authenticate("jwt"), validateId(), isListEditor()],
+    patch: [
+      authenticate("jwt"),
+      validateId(),
+      validate.form(listPatchSchema),
+      isListEditor(),
+      hasUserInParams()
+    ],
+    remove: [authenticate("jwt"), validateId(), isListEditor(), hasUserInParams()],
   },
 
   after: {
