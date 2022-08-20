@@ -10,18 +10,18 @@ import { ObjectId } from "mongodb";
 
 const { authenticate } = authentication.hooks;
 
-// const listSchema = Joi.object().keys({
-//   name: Joi.string().max(64).required(),
-//   editors: Joi.array().custom((values, helper) => {
-//     for (const value of values) {
-//       if (ObjectId.isValid(value)) {
-//         return true;
-//       } else {
-//         return helper.error(value + " is not a valid object ID");
-//       }
-//     }
-//   })
-// });
+const listSchema = Joi.object().keys({
+  name: Joi.string().max(64).required(),
+  editors: Joi.array().custom((values, helper) => {
+    for (const value of values) {
+      if (!ObjectId.isValid(value)) {
+        return helper.error(value + " is not a valid object ID");
+      }
+    }
+
+    return values; // All the values in the array were checked, continue
+  })
+});
 
 
 export default {
@@ -29,9 +29,9 @@ export default {
     all: [],
     find: [],
     get: [validateId()],
-    create: [authenticate("jwt")],
+    create: [authenticate("jwt"), validate.form(listSchema)],
     update: [authenticate("jwt")],
-    patch: [authenticate("jwt"), validateId(), isListEditor()],
+    patch: [authenticate("jwt"), validateId(), validate.form(listSchema), isListEditor()],
     remove: [authenticate("jwt"), validateId(), isListEditor()],
   },
 

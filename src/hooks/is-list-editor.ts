@@ -20,6 +20,7 @@ export default (options = {}): Hook => {
     if (list.author?.equals(context.params.user?._id)) {
       return context;
     }
+
     for (const editor of list.editors) {
       if (editor.equals(context.params.user?._id)) {
         return context;
