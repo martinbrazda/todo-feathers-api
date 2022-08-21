@@ -1,10 +1,9 @@
-import { HooksObject } from "@feathersjs/feathers";
 import * as authentication from "@feathersjs/authentication";
 import { disallow } from "feathers-hooks-common";
 import hasUserInParams from "../../hooks/has-user-in-params";
 import isTaskEditor from "../../hooks/is-task-editor";
 import makeObjectid from "../../hooks/make-objectid";
-import Joi, { valid } from "joi";
+import Joi from "joi";
 import validate from "feathers-validate-joi";
 import { ObjectId } from "mongodb";
 import sanitizeTaskQuery from "../../hooks/sanitize-task-query";

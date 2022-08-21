@@ -1,4 +1,3 @@
-import { HooksObject } from "@feathersjs/feathers";
 import * as authentication from "@feathersjs/authentication";
 import { disallow } from "feathers-hooks-common";
 import isListEditor from "../../hooks/is-list-editor";
@@ -43,7 +42,7 @@ const listPatchSchema = Joi.object().keys({
 export default {
   before: {
     all: [sanitizeListQuery()],
-    find: [makeObjectid({ type: "query", key: "author" })],
+    find: [makeObjectid({ type: "query", key: "author" }), makeObjectid({ type: "query", key: "editors" })],
     get: [validateId()],
     create: [
       authenticate("jwt"),

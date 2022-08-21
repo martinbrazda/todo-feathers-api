@@ -11,6 +11,7 @@ export default (options = {}): Hook => {
 
       if (q._id) {context.params.query._id = q._id;}
       if (q.author) {context.params.query.author = q.author;}
+      if (q.editors) {context.params.query.author = q.editors;}
 
       // For pagination
       if (q.$skip) {context.params.query.$skip = q.$skip;}
