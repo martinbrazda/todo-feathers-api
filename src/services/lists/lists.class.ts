@@ -31,9 +31,6 @@ export class Lists extends Service<ListData> {
   }
 
   find(params?: Params | undefined): Promise<ListData[] | Paginated<ListData>> {
-    if (params?.query?.author) {
-      params.query.author = new ObjectId(params.query.author);
-    }
     // console.log(params);
     return super.find(params);
   }

@@ -43,7 +43,7 @@ const listPatchSchema = Joi.object().keys({
 export default {
   before: {
     all: [sanitizeListQuery()],
-    find: [],
+    find: [makeObjectid({ type: "query", key: "author" })],
     get: [validateId()],
     create: [
       authenticate("jwt"),

@@ -167,4 +167,17 @@ describe("'tasks' service", () => {
 
     await app.service("tasks").remove(task._id, { user: user2 });
   });
+
+  it("can get all tasks from a list without auth", async () => {
+    const user = await createTestUser();
+    const list = await createTestList(user);
+
+    await createTestTask(user, list._id);
+    await createTestTask(user, list._id);
+    await createTestTask(user, list._id);
+
+    const tasks: any = await app.service("tasks").find({query: {list: list._id.toString()}});
+
+    assert.equal(tasks.total, 3);
+  });
 });

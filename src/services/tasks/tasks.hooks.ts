@@ -43,7 +43,7 @@ const taskUpdateSchema = Joi.object().keys({
 export default {
   before: {
     all: [authenticate("jwt"), sanitizeTaskQuery()],
-    find: [],
+    find: [makeObjectid({ type: "query", key: "list" }), makeObjectid({ type: "query", key: "author" })],
     get: [],
     create: [
       hasUserInParams(),

@@ -26,6 +26,24 @@ export default (options: { type?: string; key: string }): Hook => {
       }
     }
 
+    if (options.type == "query") {
+      if (!context.params.query) {
+        throw new Error("No query provided");
+      }
+
+      const value = context.params.query[options.key];
+
+      if (!value) {
+        return context; // That key doesn't exist in our query. Continue.
+      }
+
+      if (Array.isArray(value)) {
+        context.params.query[options.key] = context.params.query[options.key].map((item: any) => new ObjectId(item));
+      } else {
+        context.params.query[options.key] = new ObjectId(context.params.query[options.key]);
+      }
+    }
+
 
     return context;
   };
