@@ -7,6 +7,7 @@ import makeObjectid from "../../hooks/make-objectid";
 import Joi, { valid } from "joi";
 import validate from "feathers-validate-joi";
 import { ObjectId } from "mongodb";
+import sanitizeTaskQuery from "../../hooks/sanitize-task-query";
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
@@ -41,7 +42,7 @@ const taskUpdateSchema = Joi.object().keys({
 
 export default {
   before: {
-    all: [authenticate("jwt")],
+    all: [authenticate("jwt"), sanitizeTaskQuery()],
     find: [],
     get: [],
     create: [
