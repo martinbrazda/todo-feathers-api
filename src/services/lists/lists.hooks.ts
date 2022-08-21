@@ -9,6 +9,7 @@ import validate from "feathers-validate-joi";
 import { ObjectId } from "mongodb";
 import sanitizeListQuery from "../../hooks/sanitize-list-query";
 import hasUserInParams from "../../hooks/has-user-in-params";
+import makeObjectid from "../../hooks/make-objectid";
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
@@ -44,14 +45,20 @@ export default {
     all: [sanitizeListQuery()],
     find: [],
     get: [validateId()],
-    create: [authenticate("jwt"), validate.form(listCreateSchema), hasUserInParams()],
+    create: [
+      authenticate("jwt"),
+      validate.form(listCreateSchema),
+      hasUserInParams(),
+      makeObjectid({type: "data", key: "editors"})
+    ],
     update: [disallow("rest")],
     patch: [
       authenticate("jwt"),
       validateId(),
       validate.form(listPatchSchema),
       isListEditor(),
-      hasUserInParams()
+      hasUserInParams(),
+      makeObjectid({type: "data", key: "editors"})
     ],
     remove: [authenticate("jwt"), validateId(), isListEditor(), hasUserInParams()],
   },
