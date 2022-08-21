@@ -19,7 +19,7 @@ const listCreateSchema = Joi.object().keys({
   editors: Joi.array().custom((values, helper) => {
     for (const value of values) {
       if (!ObjectId.isValid(value)) {
-        return helper.error(value + " is not a valid object ID");
+        return helper.message({custom: value + " is not a valid object ID"});
       }
     }
 
@@ -31,7 +31,7 @@ const listPatchSchema = Joi.object().keys({
   editors: Joi.array().custom((values, helper) => {
     for (const value of values) {
       if (!ObjectId.isValid(value)) {
-        return helper.error(value + " is not a valid object ID");
+        return helper.message({custom: value + " is not a valid object ID"});
       }
     }
 

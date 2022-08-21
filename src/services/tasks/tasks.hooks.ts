@@ -13,13 +13,13 @@ const { authenticate } = authentication.hooks;
 
 const isObjectId = (value: any, helper: any) => {
   if (!ObjectId.isValid(value)) {
-    return helper.error(value + " is not a valid object ID");
+    return helper.message({custom: value + " is not a valid object ID"});
   }
   return value;
 };
 const isTaskFlag = (value: any, helper: any) => {
   if (![0, 1, 2, 3].includes(value)) {
-    return helper.error("Flag value must be a number from 0 to 3");
+    return helper.message({custom: "Flag value must be a number from 0 to 3"});
   }
   return value;
 };
