@@ -1,45 +1,39 @@
-# todo-zadanie-feathers
+# ToDo
 
-> 
+ToDo REST API server using Feathers.js
 
-## About
+## Project structure
+- `config/` - Configuration files
+  - `default.json` - port and MongoDB connection URI
+  - `production.json` - production config
+- `public/` - Static files
+- `src/` - Source code
+  - `hooks/` - Hooks for services
+  - `middleware/` - Express middlewares
+  - `services/` - Feather services
+  - `app.hooks.ts` - global hooks for every request
+  - `app.ts` - App initialization
+  - `authentication.ts`
+  - `channels.ts` - RTC channels and events
+  - `index.ts` - Entry point and server initialization
+  - `logger.ts` - Winston logger config
+  - `mongodb.ts` - MongoDB connection
+- `test` - Code tests
 
-This project uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications.
 
-## Getting Started
+## Requirements
+- Node.js >= 14
+- MongoDB = 5
 
-Getting up and running is as easy as 1, 2, 3.
+## Installing
+- `npm i` for dependencies
+- `npm install @feathersjs/cli -g` to install Feathers.js CLI for generating services and hooks
 
-1. Make sure you have [NodeJS](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
-2. Install your dependencies
-
-    ```
-    cd path/to/todo-zadanie-feathers
-    npm install
-    ```
-
-3. Start your app
-
-    ```
-    npm start
-    ```
+## Running
+- `npm start` for production
+- `npm run dev` for development (with auto restart)
+- Server will be running on the port `3030` (can be changed in config)
 
 ## Testing
-
-Simply run `npm test` and all your tests in the `test/` directory will be run.
-
-## Scaffolding
-
-Feathers has a powerful command line interface. Here are a few things it can do:
-
-```
-$ npm install -g @feathersjs/cli          # Install Feathers CLI
-
-$ feathers generate service               # Generate a new Service
-$ feathers generate hook                  # Generate a new Hook
-$ feathers help                           # Show all commands
-```
-
-## Help
-
-For more information on all the things you can do with Feathers visit [docs.feathersjs.com](http://docs.feathersjs.com).
+- Warning: Running tests will create a lot of entries in the database. Don't test on production databases :)
+- `npm test`
