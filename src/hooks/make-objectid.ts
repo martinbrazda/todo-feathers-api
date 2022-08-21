@@ -20,11 +20,12 @@ export default (options: { type?: string; key: string }): Hook => {
       // console.log("make-oid: value:", options, value);
 
       if (Array.isArray(value)) {
-        context.data[options.key].map((item: any) => new ObjectId(item));
+        context.data[options.key] = context.data[options.key].map((item: any) => new ObjectId(item));
       } else {
         context.data[options.key] = new ObjectId(context.data[options.key]);
       }
     }
+
 
     return context;
   };
