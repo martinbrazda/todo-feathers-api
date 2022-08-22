@@ -36,6 +36,9 @@ ToDo REST API server using Feathers.js
 - Server will be running on the port `3030` (can be changed in config)
 - `apidoc -i src -o public/docs` for generating API documentation (run after you change something in the apidocs comments)
 
+## API documentation
+- API docs can be found in `public/docs` and will be served on `http://localhost:3030/docs/`
+
 ## Testing
 - Warning: Running tests will create a lot of entries in the database. Don't test on production databases :)
 - `npm test`
