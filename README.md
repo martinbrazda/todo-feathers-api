@@ -28,11 +28,13 @@ ToDo REST API server using Feathers.js
 ## Installing
 - `npm i` for dependencies
 - `npm install @feathersjs/cli -g` to install Feathers.js CLI for generating services and hooks
+- `npm install apidoc -g` to install apidoc, a tool for generating the API documentation
 
 ## Running
 - `npm start` for production
 - `npm run dev` for development (with auto restart)
 - Server will be running on the port `3030` (can be changed in config)
+- `apidoc -i src -o public/docs` for generating API documentation (run after you change something in the apidocs comments)
 
 ## Testing
 - Warning: Running tests will create a lot of entries in the database. Don't test on production databases :)
