@@ -35,8 +35,7 @@ const taskUpdateSchema = Joi.object().keys({
   title: Joi.string().max(128),
   description: Joi.string(),
   deadline: Joi.date(),
-  flag: Joi.number().custom(isTaskFlag),
-  list: Joi.custom(isObjectId)
+  flag: Joi.number().custom(isTaskFlag)
 });
 
 export default {
