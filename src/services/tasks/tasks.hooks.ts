@@ -41,10 +41,11 @@ const taskUpdateSchema = Joi.object().keys({
 
 export default {
   before: {
-    all: [authenticate("jwt"), sanitizeTaskQuery()],
+    all: [sanitizeTaskQuery()],
     find: [makeObjectid({ type: "query", key: "list" }), makeObjectid({ type: "query", key: "author" })],
     get: [],
     create: [
+      authenticate("jwt"),
       hasUserInParams(),
       validate.form(taskCreateSchema),
       isTaskEditor(),
@@ -52,12 +53,13 @@ export default {
     ],
     update: [disallow("rest")],
     patch: [
+      authenticate("jwt"),
       hasUserInParams(),
       validate.form(taskUpdateSchema),
       isTaskEditor(),
       makeObjectid({ type: "data", key: "list" }),
     ],
-    remove: [hasUserInParams(), isTaskEditor()],
+    remove: [authenticate("jwt"), hasUserInParams(), isTaskEditor()],
   },
 
   after: {

@@ -58,10 +58,13 @@ export class Tasks extends Service<TaskData> {
  * @api {post} /tasks [AUTH] Create a task
  * @apiName TasksCreate
  * @apiGroup Tasks
- * @apiDescription Creates a new task on a list.
+ * @apiDescription Creates a new task on a list. You must be author or editor of the list.
  *
- * @apiBody {String} name Name of the new list
- * @apiBody {String[]} [editors] User IDs of users who can edit this list
+ * @apiBody {String} title Title of your new task
+ * @apiBody {String} [description] Description of the task (empty string by default)
+ * @apiBody {String} [deadline] Date and time of the deadline for this task. Should be in ISO format (null by default)
+ * @apiBody {Number} [flag] State of the task. (0-todo (default), 1-current, 2-finished, 3-canceled)
+ * @apiBody {Number} list List ID of the list you want to add the task to
  *
  * @apiParamExample  {json} Request Query Params Example
  * {}
@@ -69,7 +72,8 @@ export class Tasks extends Service<TaskData> {
  * {
  *    "title": "My task",
  *    "description": "Task description",
- *    ""
+ *    "deadline": "2022-08-22T13:00:00.000Z",
+ *    "flag": 1,
  *    "list": "6302667eba8329a75ac85772"
  * }
  *
@@ -81,12 +85,12 @@ export class Tasks extends Service<TaskData> {
  * @apiSuccessExample {json} Success Response
  * 200 OK
  * {
- *     "_id": "6302667eba8329a75ac85772",
- *     "name": "My list",
+ *     "_id": "63022eebe5fd3c880a770b4a",
+ *     "title": "My task",
+ *     "description": "Task description",
+ *     "deadline": "2022-08-22T13:00:00.000Z",
+ *     "flag": 1,
  *     "author": "63020cc5cd043158003e8014",
- *     "editors": [
- *         "62fa8b172b9c4256fe0e48a7",
- *         "62fa8b172b9c4256fe0e48a9"
- *     ]
+ *     "list": "6302667eba8329a75ac85772"
  * }
  */
