@@ -52,3 +52,41 @@ export class Tasks extends Service<TaskData> {
     return super.remove(id);
   }
 }
+
+/**
+ *
+ * @api {post} /tasks [AUTH] Create a task
+ * @apiName TasksCreate
+ * @apiGroup Tasks
+ * @apiDescription Creates a new task on a list.
+ *
+ * @apiBody {String} name Name of the new list
+ * @apiBody {String[]} [editors] User IDs of users who can edit this list
+ *
+ * @apiParamExample  {json} Request Query Params Example
+ * {}
+ * @apiParamExample  {json} Request Body Example
+ * {
+ *    "title": "My task",
+ *    "description": "Task description",
+ *    ""
+ *    "list": "6302667eba8329a75ac85772"
+ * }
+ *
+ * @apiSuccess (200) {String} _id List ID of the new list
+ * @apiSuccess (200) {String} name Name of the new list
+ * @apiSuccess (200) {String} author Your user ID (since you created it)
+ * @apiSuccess (200) {String[]} editors User IDs of editors (empty array by default)
+ *
+ * @apiSuccessExample {json} Success Response
+ * 200 OK
+ * {
+ *     "_id": "6302667eba8329a75ac85772",
+ *     "name": "My list",
+ *     "author": "63020cc5cd043158003e8014",
+ *     "editors": [
+ *         "62fa8b172b9c4256fe0e48a7",
+ *         "62fa8b172b9c4256fe0e48a9"
+ *     ]
+ * }
+ */
