@@ -222,7 +222,7 @@ export class Lists extends Service<ListData> {
  * @api {patch} /lists/:id [AUTH] Update a list
  * @apiName ListsPatch
  * @apiGroup Lists
- * @apiDescription Updates details of a list.
+ * @apiDescription Updates details of a list. You must be author or editor of the list to update it.
  *
  * @apiParam {String} id ID of the list to be updated
  *
@@ -261,7 +261,7 @@ export class Lists extends Service<ListData> {
  * @api {delete} /lists/:id [AUTH] Delete a list
  * @apiName ListsDelete
  * @apiGroup Lists
- * @apiDescription Deletes a list.
+ * @apiDescription Deletes a list. You must be author or editor of the list to delete it.
  *
  * @apiParam {String} id ID of the list to be deleted
  *
