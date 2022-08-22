@@ -35,3 +35,32 @@ export class Users extends Service<UserData> {
     }, params);
   }
 }
+
+/**
+ *
+ * @api {post} /users Create a user
+ * @apiName UsersCreate
+ * @apiGroup Users
+ * @apiDescription Creates a new user
+ *
+ * @apiBody {String} username Your username
+ * @apiBody {String} password Your password
+ *
+ * @apiParamExample  {json} Request Query Params Example
+ * {}
+ * @apiParamExample  {json} Request Body Example
+ * {
+ *    "username": "john",
+ *    "password": "password123"
+ * }
+ *
+ * @apiSuccess (200) {String} _id Task ID of the new user
+ * @apiSuccess (200) {String} username Username you entered
+ *
+ * @apiSuccessExample {json} Success Response
+ * 200 OK
+ * {
+ *     "_id": "63038ea0d9eb343e6cd4c2bb",
+ *     "username": "john"
+ * }
+ */
